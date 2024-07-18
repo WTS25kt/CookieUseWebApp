@@ -32,6 +32,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    var images = document.querySelectorAll('#imageContainer img');
+    images.forEach(function(img) {
+        img.addEventListener('click', function() {
+            var container = document.getElementById('imageContainer');
+            container.appendChild(img);
+            saveOrder();
+        });
+    });
+
     function saveOrder() {
         var container = document.getElementById('imageContainer');
         var images = container.getElementsByTagName('img');
@@ -41,8 +50,4 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         setCookie('imageOrder', orderArray.join(','), 7);
     }
-
-    document.getElementById('imageContainer').addEventListener('drop', function(event) {
-        saveOrder();
-    });
 });
