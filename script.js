@@ -7,6 +7,7 @@ function setCookie(name, value, days) {
     }
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
+
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -17,6 +18,7 @@ function getCookie(name) {
     }
     return null;
 }
+
 document.addEventListener("DOMContentLoaded", function() {
     var savedOrder = getCookie('imageOrder');
     if (savedOrder) {
@@ -29,18 +31,18 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-});
-function saveOrder() {
-    var container = document.getElementById('imageContainer');
-    var images = container.getElementsByTagName('img');
-    var orderArray = [];
-    for (var i = 0; i < images.length; i++) {
-        orderArray.push(images[i].id);
+
+    function saveOrder() {
+        var container = document.getElementById('imageContainer');
+        var images = container.getElementsByTagName('img');
+        var orderArray = [];
+        for (var i = 0; i < images.length; i++) {
+            orderArray.push(images[i].id);
+        }
+        setCookie('imageOrder', orderArray.join(','), 7);
     }
-    setCookie('imageOrder', orderArray.join(','), 7);
-}
-// 例: ドラッグ＆ドロップのイベントリスナー
-document.getElementById('imageContainer').addEventListener('drop', function(event) {
-    // ドロップ処理
-    saveOrder();
+
+    document.getElementById('imageContainer').addEventListener('drop', function(event) {
+        saveOrder();
+    });
 });
