@@ -20,26 +20,46 @@ function getCookie(name) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    var savedOrder = getCookie('imageOrder');
-    if (savedOrder) {
-        var orderArray = savedOrder.split(',');
-        var container = document.getElementById('imageContainer');
-        orderArray.forEach(function(id) {
-            var img = document.getElementById(id);
-            if (img) {
-                container.appendChild(img);
-            }
-        });
+    var cookieConsent = getCookie('cookieConsent');
+    if (!cookieConsent) {
+        document.getElementById('cookieConsent').style.display = 'block';
+    } else if (cookieConsent === 'accepted') {
+        initializeImageOrder();
     }
 
-    var images = document.querySelectorAll('#imageContainer img');
-    images.forEach(function(img) {
-        img.addEventListener('click', function() {
-            var container = document.getElementById('imageContainer');
-            container.appendChild(img);
-            saveOrder();
-        });
+    document.getElementById('acceptCookies').addEventListener('click', function() {
+        setCookie('cookieConsent', 'accepted', 30);
+        document.getElementById('cookieConsent').style.display = 'none';
+        initializeImageOrder();
     });
+
+    document.getElementById('rejectCookies').addEventListener('click', function() {
+        setCookie('cookieConsent', 'rejected', 30);
+        document.getElementById('cookieConsent').style.display = 'none';
+    });
+
+    function initializeImageOrder() {
+        var savedOrder = getCookie('imageOrder');
+        if (savedOrder) {
+            var orderArray = savedOrder.split(',');
+            var container = document.getElementById('imageContainer');
+            orderArray.forEach(function(id) {
+                var img = document.getElementById(id);
+                if (img) {
+                    container.appendChild(img);
+                }
+            });
+        }
+
+        var images = document.querySelectorAll('#imageContainer img');
+        images.forEach(function(img) {
+            img.addEventListener('click', function() {
+                var container = document.getElementById('imageContainer');
+                container.appendChild(img);
+                saveOrder();
+            });
+        });
+    }
 
     function saveOrder() {
         var container = document.getElementById('imageContainer');

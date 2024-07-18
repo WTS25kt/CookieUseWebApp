@@ -3,6 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>画像の並び替え</title>
+    <style>
+        #cookieConsent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            display: none;
+        }
+        #cookieConsent button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #cookieConsent button.reject {
+            background-color: #f44336;
+        }
+    </style>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -10,6 +34,12 @@
         <img id="img1" src="image1.jpg" alt="Image 1">
         <img id="img2" src="image2.jpg" alt="Image 2">
         <img id="img3" src="image3.jpg" alt="Image 3">
+    </div>
+
+    <div id="cookieConsent">
+        このサイトではCookieを使用しています。Cookieの使用に同意しますか？
+        <button id="acceptCookies">同意する</button>
+        <button id="rejectCookies" class="reject">同意しない</button>
     </div>
 </body>
 </html>
